@@ -76,7 +76,7 @@
  }
 
  // Checks to see if the block of memory has been previously written to (unless OVERWRITE is enabled)
- bool SPIFram::_notPrevWritten(uint32_t _addr, uint32_t size) {
+ bool SPIFram::_notPrevWritten(__attribute__((unused)) uint32_t _addr, uint32_t size) {
   #if !defined (OVERWRITE)
    _beginSPI(READDATA);
    for (uint32_t i = 0; i < size; i++) {if (_nextByte(READ) != 0x00) {
@@ -174,7 +174,7 @@
  //SPI data lines are left open until _endSPI() is called
 
  //Reads/Writes next byte. Call 'n' times to read/write 'n' number of bytes. Should be called after _beginSPI()
- uint8_t SPIFram::_nextByte(char IOType, uint8_t data) {
+ uint8_t SPIFram::_nextByte(__attribute__((unused)) char IOType, uint8_t data) {
  #if defined (ARDUINO_ARCH_SAMD)
    #ifdef ENABLEZERODMA
      union {
@@ -203,7 +203,7 @@
 
  //Reads/Writes next data buffer. Should be called after _beginSPI()
  void SPIFram::_nextBuf(uint8_t opcode, uint8_t *data_buffer, uint32_t size) {
-   uint8_t *_dataAddr = &(*data_buffer);
+   __attribute__((unused)) uint8_t *_dataAddr = &(*data_buffer);
    switch (opcode) {
      case READDATA:
      #if defined (ARDUINO_ARCH_SAM)
