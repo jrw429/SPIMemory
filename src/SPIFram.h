@@ -186,7 +186,7 @@ template <class T> bool SPIFram::readAnything(uint32_t _addr, T& data, bool fast
 
 //---------------------------------- Private Templates ----------------------------------//
 
-template <class T> bool SPIFram::_writeErrorCheck(uint32_t _addr, const T& value, uint32_t _sz, uint8_t _dataType) {
+template <class T> bool SPIFram::_writeErrorCheck(uint32_t _addr, const T& value, uint32_t _sz, __attribute__((unused)) uint8_t _dataType) {
   if (!_addressCheck(_addr, _sz)) {
     return false;
   }
