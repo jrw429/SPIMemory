@@ -211,7 +211,7 @@
 #define NOERRCHK      false
 #define PRINTOVERRIDE true
 #define ERASEFUNC     0xEF
-#define BUSY_TIMEOUT  1000000000L
+#define BUSY_TIMEOUT  1000000L
 #define arrayLen(x)   (sizeof(x) / sizeof(*x))
 #define lengthOf(x)   (sizeof(x))/sizeof(byte)
 #define BYTE          1L
