@@ -161,6 +161,11 @@ uint8_t SPIFlash::error(bool _verbosity) {
   }
 }
 
+//Clear error after checking so it doesn't persist forever
+void SPIFlash::clearError(void) {
+    diagnostics.errorcode = SUCCESS;
+}
+
 //Returns capacity of chip
 uint32_t SPIFlash::getCapacity(void) {
 	return _chip.capacity;

@@ -51,6 +51,7 @@ public:
   bool     libver(uint8_t *b1, uint8_t *b2, uint8_t *b3);
   bool     sfdpPresent(void);
   uint8_t  error(bool verbosity = false);
+  void     clearError(void);
   uint16_t getManID(void);
   uint32_t getJEDECID(void);
   uint64_t getUniqueID(void);
