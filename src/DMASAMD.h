@@ -7,7 +7,7 @@
 #ifdef ARDUINO_ARCH_SAMD
 #include <SPI.h>
 
-#define PRREG(x) Serial.print(#x" 0x"); Serial.println(x,HEX)
+#define PRREG(x) SerialUSB.print(#x" 0x"); SerialUSB.println(x,HEX)
 
 
 #define BYTES 1024
@@ -15,9 +15,9 @@ char txbuf[BYTES], rxbuf[BYTES];
 
 /*void prmbs(char *lbl,unsigned long us,int bits) {
     float mbs = (float)bits/us;
-    Serial.print(mbs,2); Serial.print(" mbs  ");
-    Serial.print(us); Serial.print(" us   ");
-    Serial.println(lbl);
+    SerialUSB.print(mbs,2); SerialUSB.print(" mbs  ");
+    SerialUSB.print(us); SerialUSB.print(" us   ");
+    SerialUSB.println(lbl);
 }*/
 
 // DMA   12 channels

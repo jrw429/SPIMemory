@@ -65,12 +65,12 @@ SPIFram::SPIFram(uint8_t cs) {
 //Identifies chip and establishes parameters
 bool SPIFram::begin(uint32_t flashChipSize) {
 #ifdef RUNDIAGNOSTIC
-  Serial.println("Chip Diagnostics initiated.");
-  Serial.println();
+  SerialUSB.println("Chip Diagnostics initiated.");
+  SerialUSB.println();
 #endif
 #ifdef HIGHSPEED
-  Serial.println("Highspeed mode initiated.");
-  Serial.println();
+  SerialUSB.println("Highspeed mode initiated.");
+  SerialUSB.println();
 #endif
   BEGIN_SPI
 #ifdef SPI_HAS_TRANSACTION

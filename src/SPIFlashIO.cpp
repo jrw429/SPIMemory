@@ -51,20 +51,20 @@
      return false;
  	}
 
-   //Serial.print(F("_chip.capacity: "));
-   //Serial.println(_chip.capacity, HEX);
+   //SerialUSB.print(F("_chip.capacity: "));
+   //SerialUSB.println(_chip.capacity, HEX);
 
    if (_submittedAddress + size >= _chip.capacity) {
-     //Serial.print(F("_submittedAddress + size: "));
-     //Serial.println(_submittedAddress + size, HEX);
+     //SerialUSB.print(F("_submittedAddress + size: "));
+     //SerialUSB.println(_submittedAddress + size, HEX);
    #ifdef DISABLEOVERFLOW
      _troubleshoot(OUTOFBOUNDS);
      return false;					// At end of memory - (!pageOverflow)
    #else
      _addressOverflow = ((_submittedAddress + size) - _chip.capacity);
      _currentAddress = _addr;
-     //Serial.print(F("_addressOverflow: "));
-     //Serial.println(_addressOverflow, HEX);
+     //SerialUSB.print(F("_addressOverflow: "));
+     //SerialUSB.println(_addressOverflow, HEX);
      return true;					// At end of memory - (pageOverflow)
    #endif
    }
@@ -73,8 +73,8 @@
      _currentAddress = _addr;
      return true;				// Not at end of memory if (address < _chip.capacity)
    }
-   //Serial.print(F("_currentAddress: "));
-   //Serial.println(_currentAddress, HEX);
+   //SerialUSB.print(F("_currentAddress: "));
+   //SerialUSB.println(_currentAddress, HEX);
  }
 
  // Checks to see if the block of memory has been previously written to
@@ -103,8 +103,8 @@
    }
    switch (opcode) {
      case PAGEPROG:
-     //Serial.print(F("Address being prepped: "));
-     //Serial.println(_addr);
+     //SerialUSB.print(F("Address being prepped: "));
+     //SerialUSB.println(_addr);
      #ifndef HIGHSPEED
        if(_isChipPoweredDown() || !_addressCheck(_addr, size) || !_notPrevWritten(_addr, size) || !_notBusy() || !_writeEnable()) {
          return false;
@@ -562,7 +562,7 @@
 
    if (_chip.supportedMan) {
      #ifdef RUNDIAGNOSTIC
-       Serial.println(F("No Chip size defined by user. Checking library support."));
+       SerialUSB.println(F("No Chip size defined by user. Checking library support."));
      #endif
      //Identify capacity
      if(_chip.manufacturerID == MACRONIX_MANID)
@@ -586,7 +586,7 @@
          _chip.capacity = (_memSize[j]);
          _chip.supported = true;
          #ifdef RUNDIAGNOSTIC
-           Serial.println(F("Chip identified. This chip is fully supported by the library."));
+           SerialUSB.println(F("Chip identified. This chip is fully supported by the library."));
          #endif
          return true;
        }
@@ -595,7 +595,7 @@
    else {
      if (_chip.sfdpAvailable) {
        #ifdef RUNDIAGNOSTIC
-         Serial.println(F("SFDP ID finished."));
+         SerialUSB.println(F("SFDP ID finished."));
        #endif
        return true;
      }
@@ -608,12 +608,12 @@
 
    if (!_chip.capacity) {
      #ifdef RUNDIAGNOSTIC
-       Serial.println(F("Chip capacity cannot be identified"));
+       SerialUSB.println(F("Chip capacity cannot be identified"));
      #endif
      if (flashChipSize) {
        // If a custom chip size is defined
        #ifdef RUNDIAGNOSTIC
-       Serial.println(F("Custom Chipsize defined"));
+       SerialUSB.println(F("Custom Chipsize defined"));
        #endif
        _chip.capacity = flashChipSize;
        _chip.supported = false;

@@ -113,7 +113,7 @@ bool SPIFlash::_checkForSFDP(void) {
   if (_getSFDPdword(SFDP_HEADER_ADDR, SFDP_SIGNATURE_DWORD) == SFDPSIGNATURE) {
     _chip.sfdpAvailable = true;
     #ifdef RUNDIAGNOSTIC
-    Serial.println(F("SFDP available"));
+    SerialUSB.println(F("SFDP available"));
     #endif
   }
   else {
@@ -277,36 +277,36 @@ void SPIFlash::_getSFDPProgramTimeParam(void) {
 
     //Calculate Program time multiplier
     _prgmTimeMultiplier = (2 * ((_sfdp.byte[1] >> 4) + 1));
-    //Serial.print("_prgmTimeMultiplier: ");
-    //Serial.println(_prgmTimeMultiplier);
+    //SerialUSB.print("_prgmTimeMultiplier: ");
+    //SerialUSB.println(_prgmTimeMultiplier);
 
     // Get pageSize
     //setUpperNibble(_eraseTimeMultiplier, 0b0000);
     _pageSize = setUpperNibble(_sfdp.byte[1], 0b0000);
     _pageSize *= 2;
-    //Serial.print("_pageSize: ");
-    //Serial.println(_pageSize);
+    //SerialUSB.print("_pageSize: ");
+    //SerialUSB.println(_pageSize);
 
     //Calculate Page Program time
     _count = (((_sfdp.byte[1] & _createMask(0, 4))) + 1);
     ((_sfdp.byte[1] & _createMask(7, 7)) >> 7) ? (_units = 64) : (_units = 8);
     _pagePrgmTime = (_count * _units) * _prgmTimeMultiplier;
-    //Serial.print("_pagePrgmTime: ");
-    //Serial.println(_pagePrgmTime);
+    //SerialUSB.print("_pagePrgmTime: ");
+    //SerialUSB.println(_pagePrgmTime);
 
     //Calculate First Byte Program time
     _count = ( (((_sfdp.byte[1] & _createMask(6, 7)) >> 4) | (((_sfdp.byte[2] & _createMask(6, 7))) >> 6)) + 1);
     ((_sfdp.byte[2] & _createMask(5, 5)) >> 5) ? (_units = 8) : (_units = 1);
     _byteFirstPrgmTime = (_count * _units) * _prgmTimeMultiplier;
-    //Serial.print("_byteFirstPrgmTime :");
-    //Serial.println(_byteFirstPrgmTime);
+    //SerialUSB.print("_byteFirstPrgmTime :");
+    //SerialUSB.println(_byteFirstPrgmTime);
 
     //Calculate Additional Byte Program time
     _count = ( ((_sfdp.byte[2] & _createMask(4, 1)) >> 1) + 1);
     (_sfdp.byte[2] & _createMask(0, 0)) ? (_units = 8) : (_units = 1);
     _byteAddnlPrgmTime = (_count * _units) * _prgmTimeMultiplier;
-    //Serial.print("_byteAddnlPrgmTime :");
-    //Serial.println(_byteAddnlPrgmTime);
+    //SerialUSB.print("_byteAddnlPrgmTime :");
+    //SerialUSB.println(_byteAddnlPrgmTime);
   }
   else {
     _pageSize = SPI_PAGESIZE;
@@ -344,10 +344,10 @@ bool SPIFlash::_getSFDPFlashParam(void) {
   _getSFDPProgramTimeParam();
 // TODO Update the use of Program time parameters across the library
 
-  //Serial.print("dWord 9: 0x");
-  //Serial.println(_getSFDPdword(_BasicParamTableAddr, DWORD(9)), HEX);
+  //SerialUSB.print("dWord 9: 0x");
+  //SerialUSB.println(_getSFDPdword(_BasicParamTableAddr, DWORD(9)), HEX);
   #ifdef RUNDIAGNOSTIC
-    Serial.println("Chip identified using sfdp. Most of this chip's functions are supported by the library.");
+    SerialUSB.println("Chip identified using sfdp. Most of this chip's functions are supported by the library.");
   #endif
   return true;
 }

@@ -308,11 +308,11 @@ template <class T> bool SPIFlash::_write(uint32_t _addr, const T& value, uint32_
     return false;
   }
   _addrIn = _currentAddress;
-  //Serial.print(F("_addrIn: "));
-  //Serial.println(_addrIn, HEX);
+  //SerialUSB.print(F("_addrIn: "));
+  //SerialUSB.println(_addrIn, HEX);
   const uint8_t* p = ((const uint8_t*)(const void*)&value);
-  //Serial.print(F("Address being written to: "));
-  //Serial.println(_addr);
+  //SerialUSB.print(F("Address being written to: "));
+  //SerialUSB.println(_addr);
   uint32_t length = _sz;
   uint16_t maxBytes = SPI_PAGESIZE-(_addrIn % SPI_PAGESIZE);  // Force the first set of bytes to stay within the first page
 
@@ -370,8 +370,8 @@ template <class T> bool SPIFlash::_write(uint32_t _addr, const T& value, uint32_
     return true;
   }
   else {
-    //Serial.print(F("Address sent to error check: "));
-    //Serial.println(_addr);
+    //SerialUSB.print(F("Address sent to error check: "));
+    //SerialUSB.println(_addr);
     _retVal =  _writeErrorCheck(_addr, value, _sz, _dataType);
   }
 #ifdef RUNDIAGNOSTIC

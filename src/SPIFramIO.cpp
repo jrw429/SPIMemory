@@ -49,20 +49,20 @@
      return false;
  	}
 
-   //Serial.print("_chip.capacity: ");
-   //Serial.println(_chip.capacity, HEX);
+   //SerialUSB.print("_chip.capacity: ");
+   //SerialUSB.println(_chip.capacity, HEX);
 
    if (_submittedAddress + size >= _chip.capacity) {
-     //Serial.print("_submittedAddress + size: ");
-     //Serial.println(_submittedAddress + size, HEX);
+     //SerialUSB.print("_submittedAddress + size: ");
+     //SerialUSB.println(_submittedAddress + size, HEX);
    #ifdef DISABLEOVERFLOW
      _troubleshoot(OUTOFBOUNDS);
      return false;					// At end of memory - (!pageOverflow)
    #else
      _addressOverflow = ((_submittedAddress + size) - _chip.capacity);
      _currentAddress = _addr;
-     //Serial.print("_addressOverflow: ");
-     //Serial.println(_addressOverflow, HEX);
+     //SerialUSB.print("_addressOverflow: ");
+     //SerialUSB.println(_addressOverflow, HEX);
      return true;					// At end of memory - (pageOverflow)
    #endif
    }
@@ -71,8 +71,8 @@
      _currentAddress = _addr;
      return true;				// Not at end of memory if (address < _chip.capacity)
    }
-   //Serial.print("_currentAddress: ");
-   //Serial.println(_currentAddress, HEX);
+   //SerialUSB.print("_currentAddress: ");
+   //SerialUSB.println(_currentAddress, HEX);
  }
 
  // Checks to see if the block of memory has been previously written to (unless OVERWRITE is enabled)
@@ -338,7 +338,7 @@
      if (flashChipSize) {
        // If a custom chip size is defined
        #ifdef RUNDIAGNOSTIC
-       Serial.println("Custom Chipsize defined");
+       SerialUSB.println("Custom Chipsize defined");
        #endif
        _chip.capacity = flashChipSize;
        _chip.supported = false;
@@ -355,7 +355,7 @@
        }
        if (_chip.supportedMan) {
          #ifdef RUNDIAGNOSTIC
-           Serial.println("No Chip size defined by user. Checking library support.");
+           SerialUSB.println("No Chip size defined by user. Checking library support.");
          #endif
          //Identify capacity
          _chip.capacity = ((_chip.devID1 & _createMask(0, 4)) * KB(16)); // Currently only tested to be compatible with the FM25 series FRAM from Cypress. Refer to datasheet for FM25V05, Page 9
