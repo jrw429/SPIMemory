@@ -95,6 +95,8 @@
 #define READSFDP      0x5A
 #define UNIQUEID      0x4B
 #define FRAMSERNO     0xC3
+#define RESETEN       0x66
+#define RESET         0x99
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 //                     General size definitions                       //

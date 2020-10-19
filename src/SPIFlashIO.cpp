@@ -629,6 +629,19 @@
    return true;
  }
 
+ //Software reset of chip, for ISSI IS25LP512M at least, unsure for anything else
+ void SPIFlash::_softwareReset(void) {
+   if(!_notBusy()) {
+     // do nothing. hopefully the reset will clear this.
+   }
+   _beginSPI(RESETEN);
+   CHIP_DESELECT
+   _delay_us(50);
+   _beginSPI(RESET);
+   CHIP_DESELECT
+   _delay_us(50);
+ }
+
  //Troubleshooting function. Called when #ifdef RUNDIAGNOSTIC is uncommented at the top of this file.
  void SPIFlash::_troubleshoot(uint8_t _code, bool printoverride) {
    diagnostics.troubleshoot(_code, printoverride);

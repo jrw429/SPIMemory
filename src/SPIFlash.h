@@ -52,6 +52,7 @@ public:
   bool     sfdpPresent(void);
   uint8_t  error(bool verbosity = false);
   void     clearError(void);
+  void     softwareReset(void);
   uint16_t getManID(void);
   uint32_t getJEDECID(void);
   uint64_t getUniqueID(void);
@@ -126,6 +127,7 @@ private:
   bool     _notPrevWritten(uint32_t _addr, uint32_t size = 1);
   bool     _writeEnable(bool _troubleshootEnable = true);
   bool     _writeDisable(void);
+  void     _softwareReset(void);
   bool     _getJedecId(void);
   bool     _getManId(uint8_t *b1, uint8_t *b2);
   bool     _chipID(uint32_t flashChipSize = 0);

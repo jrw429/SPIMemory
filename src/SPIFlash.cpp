@@ -194,6 +194,11 @@ bool SPIFlash::libver(uint8_t *b1, uint8_t *b2, uint8_t *b3) {
   return true;
 }
 
+//Software reset of flash chip
+void SPIFlash::softwareReset(void) {
+  _softwareReset();
+}
+
 //Checks to see if SFDP is present
 bool SPIFlash::sfdpPresent(void) {
   return _chip.sfdpAvailable;
